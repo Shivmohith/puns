@@ -1,15 +1,15 @@
 from flask import Flask, request, Response
-import db
+from app import db
 
-app = Flask(__name__)
+flask_app = Flask(__name__)
 
 
-@app.route("/")
-def hello_world():
+@flask_app.route("/")
+def hello_punsters():
     return "<p>Hello, Punsters!</p>"
 
 
-@app.route("/puns", methods=['GET', 'POST'])
+@flask_app.route("/puns", methods=['GET', 'POST'])
 def puns():
     try:
         if request.method == 'POST':
@@ -31,7 +31,3 @@ def puns():
         resp.set_data(str(error))
         return resp
 
-
-if __name__ == "__main__":
-    db.connect()
-    app.run('localhost', '3030')

@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  web:
+    build: .
+    depends_on:
+      - db
+    working_dir: /opt/app
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/opt/app
+    environment:
+      DB_HOST: "db"
+      DB_PASSWORD: "postgres"
+      DB_NAME: "puns"
+      DB_USER: "postgres"
+
+    command: gunicorn -b 0.0.0.0:8080 wsgi:flask_app
+
+  db:
+    image: "postgres:9.6"
+    volumes:
+      - /var/lib/postgresql
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD: "postgres"
