@@ -6,6 +6,7 @@ flask_app = Flask(__name__)
 
 @flask_app.route("/")
 def hello_punsters():
+    db.connect()
     return "<p>Hello, Punsters!</p>"
 
 
