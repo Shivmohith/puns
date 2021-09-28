@@ -13,4 +13,6 @@ RUN pip3 install -r requirements.txt
 
 COPY . /opt/app
 
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "wsgi:application"]
+#CMD ["gunicorn", "-b", "0.0.0.0:8080", "-w", "4", "wsgi:application"]
+
+CMD ["python3", "wsgi.py"]
