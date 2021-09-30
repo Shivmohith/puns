@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "template.openshift.io/v1",
   "metadata": {
-    "name": "postgresql-ephemeral",
+    "name": "postgresql-docker",
     "annotations": {
       "openshift.io/display-name": "PostgreSQL (Ephemeral)",
       "description": "PostgreSQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
@@ -120,20 +120,6 @@
                     "protocol": "TCP"
                   }
                 ],
-                "readinessProbe": {
-                  "timeoutSeconds": 1,
-                  "initialDelaySeconds": 5,
-                  "exec": {
-                    "command": [ "/usr/libexec/check-container" ]
-                  }
-                },
-                "livenessProbe": {
-                  "timeoutSeconds": 10,
-                  "initialDelaySeconds": 120,
-                  "exec": {
-                    "command": [ "/usr/libexec/check-container", "--live" ]
-                  }
-                },
                 "env": [
                   {
                     "name": "POSTGRESQL_USER",
@@ -145,7 +131,7 @@
                     }
                   },
                   {
-                    "name": "POSTGRESQL_PASSWORD",
+                    "name": "POSTGRES_PASSWORD",
                     "valueFrom": {
                       "secretKeyRef" : {
                         "name" : "${DATABASE_SERVICE_NAME}",
@@ -161,7 +147,7 @@
                         "key" : "database-name"
                       }
                     }
-                  }
+                  }qq
                 ],
                 "resources": {
                   "limits": {
